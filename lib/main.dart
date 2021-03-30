@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:news/listwidget.dart';
+import 'package:news/shared/listitem.dart';
+import 'package:lipsum/lipsum.dart' as lipsum;
+
+import 'details.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,6 +26,39 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
+  List<ListItem> listTiles = [
+    ListItem(
+      "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1525&q=80",
+      lipsum.createWord(numWords: 6),
+      lipsum.createWord(numWords: 2),
+      "28 Jan 2020",
+    ),
+    ListItem(
+      "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1525&q=80",
+      lipsum.createWord(numWords: 6),
+      lipsum.createWord(numWords: 2),
+      "03 Mar 2021",
+    ),
+    ListItem(
+      "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1525&q=80",
+      lipsum.createWord(numWords: 6),
+      lipsum.createWord(numWords: 2),
+      "28 Mei 2020",
+    ),
+    ListItem(
+      "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1525&q=80",
+      lipsum.createWord(numWords: 6),
+      lipsum.createWord(numWords: 2),
+      "28 Mei 2020",
+    ),
+    ListItem(
+      "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1525&q=80",
+      lipsum.createWord(numWords: 6),
+      lipsum.createWord(numWords: 2),
+      "28 Mei 2020",
+    ),
+  ];
+
   List<Tab> _tabList = [
     Tab(
       child: Text("Terbaru"),
@@ -29,16 +67,16 @@ class _HomePageState extends State<HomePage>
       child: Text("Viral"),
     ),
     Tab(
-      child: Text("Trending"),
+      child: Text("Lokal"),
     ),
     Tab(
-      child: Text("4"),
+      child: Text("Internasional"),
     ),
   ];
 
   TabController _tabController;
   @override
-  void iniState() {
+  void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: _tabList.length);
   }
@@ -53,10 +91,11 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 95.0,
         leading: IconButton(
           onPressed: () {},
           icon: Icon(
-            Icons.menu,
+            Icons.account_circle_outlined,
             color: Colors.black,
           ),
         ),
@@ -82,7 +121,27 @@ class _HomePageState extends State<HomePage>
         children: [
           Padding(
             padding: EdgeInsets.all(8.0),
-            child: Container(),
+            child: Container(
+              child: ListView.builder(
+                itemCount: listTiles.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailsScreen(
+                            item: listTiles[index],
+                            tag: listTiles[index].newsTitle,
+                          ),
+                        ),
+                      );
+                    },
+                    child: listWidget(listTiles[index]),
+                  );
+                },
+              ),
+            ),
           ),
           Padding(
             padding: EdgeInsets.all(8.0),
