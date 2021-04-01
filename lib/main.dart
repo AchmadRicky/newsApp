@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:news/listwidget.dart';
 import 'package:news/shared/listitem.dart';
 import 'package:lipsum/lipsum.dart' as lipsum;
-
 import 'details.dart';
+import 'wrapper.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: Wrapper(),
     );
   }
 }
