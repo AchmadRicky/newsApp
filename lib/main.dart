@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:news/listwidget.dart';
 import 'package:news/shared/listitem.dart';
 import 'package:lipsum/lipsum.dart' as lipsum;
+import 'package:provider/provider.dart';
 import 'details.dart';
 import 'wrapper.dart';
+import 'auth_service.dart';
+import 'profil.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,9 +16,12 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Wrapper(),
+    return StreamProvider.value(
+      value: AuthServices.firebaseUserStream,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Wrapper(),
+      ),
     );
   }
 }
